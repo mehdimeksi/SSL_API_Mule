@@ -1,0 +1,26 @@
+https:
+  listener:
+    host: "0.0.0.0"
+    keystore:
+      file: "mykeystore.jks"
+      alias: "mule-server"
+      password: "${secure::keystore.password}"
+    truststore:
+      file: "mykeystore.jks"
+      alias: "localhost-client"
+      password: "${secure::truststore.password}"
+    timeout:
+      connection-idle: "600000"
+  private:
+   port: "8092"
+  port: "8082"
+  request:
+    timeout:
+      connection-idle: "500000"
+      response: "40000"
+database:
+  host: "localhost"
+  port:  "3306"
+  user: "root"
+  password: "${secure::DBpassword.password}"
+  DB: "training"

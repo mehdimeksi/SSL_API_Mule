@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+<!-- [STUDIO:"ssl_apiFlow"]	<flow name="ssl_apiFlow" doc:id="0466c579-e0e7-49c4-93dc-f19959c83097" >
+		<http:listener doc:name="Listener" doc:id="2d52d604-5177-47ad-9301-9d068f87569a" config-ref="HTTP_Listener_config" path="/training" allowedMethods="GET" outputMimeType="application/json">
+			<http:response>
+				<http:body ><![CDATA[#[output application/json &#45;&#45;- payload]]]></http:body>
+			</http:response>
+		</http:listener>
+	<db:select doc:name="Select" doc:id="50102717-1b70-45da-a404-1d10ba47d06c" config-ref="Database_Config">
+			<db:sql><![CDATA[SELECT * FROM customers ]]></db:sql>
+		</db:select>
+		<parallel-foreach doc:name="Parallel For Each" doc:id="08a24fd3-9ee0-4f0f-9007-cb8ce8d1a00a" >
+			<ee:transform doc:name="Transform Message">
+    <ee:message>
+      <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+&#45;&#45;-
+
+Mule::lookup('flow2', {name:payload.NAME})
+
+]]></ee:set-payload>
+    </ee:message>
+  </ee:transform>
+		</parallel-foreach>
+		<ee:transform doc:name="Transform Message" doc:id="2742fe02-9d2a-4568-8af0-552a1aa568e2" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+&#45;&#45;-
+flatten(payload.payload) ]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	
+</flow> [STUDIO] -->
+<!-- [STUDIO:"flow2"]	<flow name="flow2" doc:id="fac22be4-25e8-4964-857f-86233a908483">
+  <set-variable value="#[payload.name]" doc:name="Set Variable" doc:id="ba1f0b67-01a5-4714-b9fd-73314d80aee4" variableName="name"/>
+		<db:select doc:name="Select" doc:id="47486638-5f53-411f-8c7c-b43722b02c15" config-ref="Database_Config">
+			<db:sql ><![CDATA[SELECT * FROM customers where NAME = :name]]></db:sql>
+			<db:input-parameters ><![CDATA[#[{name: vars.name}]]]></db:input-parameters>
+		</db:select>
+		<ee:transform doc:name="Transform Message" doc:id="c07ac06a-7210-4ec6-adf9-da1f4a3b7bdf" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+&#45;&#45;-
+payload map ((item, index) ->{
+	ID:item.ID,
+	NAME:item.NAME
+} )]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" message='#[payload]'/>
+</flow> [STUDIO] -->
+	<flow name="ssl_apiFlow1" doc:id="9bcb04de-9636-4f93-9eff-b7316cb3df00" >
+		<http:listener doc:name="Listener" doc:id="637e20f4-aae0-4b03-b2d2-09271eee18e7" config-ref="HTTP_Listener_config" path="/training" outputMimeType="application/json" allowedMethods="GET" >
+			<http:response >
+				<http:body ><![CDATA[#[output application/json --- payload]]]></http:body>
+			</http:response>
+		</http:listener>
+		<db:select doc:name="Select" doc:id="1a1cc65a-a17f-4396-b976-87e018b1d1ae" config-ref="Database_Config" >
+			<db:sql ><![CDATA[SELECT * FROM customers ]]></db:sql>
+		</db:select>
+	</flow>
+</mule>

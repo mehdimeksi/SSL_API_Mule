@@ -1,0 +1,9 @@
+keystore:
+  password: "changeit"
+ 
+truststore:
+  password: "changeit"
+  
+DBpassword:
+  password: "root"
+ 

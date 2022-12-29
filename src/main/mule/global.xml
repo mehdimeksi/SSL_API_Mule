@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:db="http://www.mulesoft.org/schema/mule/db" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="3e00d27a-7e3c-4193-814c-60899174b6c6" >
+		<http:listener-connection protocol="HTTPS" host="${https.listener.host}" port="${https.private.port}" >
+			<tls:context >
+				<tls:key-store type="jks" path="${https.listener.keystore.file}" keyPassword="${https.listener.keystore.password}" password="${https.listener.keystore.password}" />
+			</tls:context>
+		</http:listener-connection>
+	</http:listener-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="a9bdd7b9-47db-480a-ad0e-629c0250e85e" file="${env}.yaml" />
+	<global-property doc:name="Global Property" doc:id="10a89788-c7f3-4a01-89a1-2e2405a6e5b2" name="env" value="dev" />
+	<secure-properties:config name="Secure_Properties_Config" doc:name="Secure Properties Config" doc:id="ac78d03c-f750-4240-99ad-a8e2b4f7fd38" file="secure-dev.yaml" key="${mule.key}" />
+	<global-property doc:name="Global Property" doc:id="1f7d517b-f1b5-4da9-96c8-3c0494647995" name="mule.key" value="changeit123456789" />
+	<db:config name="Database_Config" doc:name="Database Config" doc:id="6fb1c46b-af40-45b0-b8aa-5d85d4758ef9" >
+		<db:my-sql-connection host="${database.host}" port="${database.port}" user="${database.user}" password="${database.password}" database="${database.DB}" />
+	</db:config>
+</mule>
