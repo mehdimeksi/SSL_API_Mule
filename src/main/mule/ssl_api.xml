@@ -57,13 +57,13 @@ payload map ((item, index) ->{
 		</ee:transform>
 		<logger level="INFO" doc:name="Logger" message='#[payload]'/>
 </flow> [STUDIO] -->
-	<flow name="ssl_apiFlow1" doc:id="9bcb04de-9636-4f93-9eff-b7316cb3df00" >
-		<http:listener doc:name="Listener" doc:id="637e20f4-aae0-4b03-b2d2-09271eee18e7" config-ref="HTTP_Listener_config" path="/training" outputMimeType="application/json" allowedMethods="GET" >
+	<flow name="ssl_apiMainFlow" doc:id="2edb641d-5284-4e93-9c89-35df14aa7e0d" >
+		<http:listener doc:name="Listener" doc:id="2991fddc-e5ae-4dee-8482-f5ce23b30949" config-ref="HTTP_Listener_config" path="/training" outputMimeType="application/json" allowedMethods="GET" >
 			<http:response >
 				<http:body ><![CDATA[#[output application/json --- payload]]]></http:body>
 			</http:response>
 		</http:listener>
-		<db:select doc:name="Select" doc:id="1a1cc65a-a17f-4396-b976-87e018b1d1ae" config-ref="Database_Config" >
+		<db:select doc:name="Select" doc:id="ff0c96a4-3935-4ede-afd4-533e26634d28" config-ref="Database_Config" >
 			<db:sql ><![CDATA[SELECT * FROM customers ]]></db:sql>
 		</db:select>
 	</flow>
