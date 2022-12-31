@@ -1,0 +1,38 @@
+env.PROJECT_GIT_NAME = 'SSL_API_Mule'
+env.PROJECT_NAME = env.PROJECT_GIT_NAME.toLowerCase()
+env.GIT_URL = 'https://github.com/mehdimeksi/SSL_API_Mule.git'
+env.TYPE = "" // if big data = _mr
+
+// Credentials IDs (Manage Jenkins => Credentials)
+env.GIT_CREDENTIALS_ID = 'GIT'
+
+node {
+ 	// Clean workspace before doing anything
+    try {
+        stage('Initialize') {
+            bat '''
+                echo "PATH = ${PATH}"
+                echo "M2_HOME = ${M2_HOME}"
+            ''' 
+        }
+        stage ('Git Checkout') {
+            git(
+                url: "${GIT_URL}",
+                credentialsId: "${GIT_CREDENTIALS_ID}",
+                branch: 'master'
+            )       
+            mvnHome = tool 'MAVEN'
+        }
+     
+
+         stage ('Publish artifacts to on-prem') {
+
+                        // Run the maven build
+                        bat "mvn package deploy -DmuleDeploy -Dmule.version=4.4.0 -Dmule.home=C:/mule-node/bin"
+                        
+        }
+    } catch (err) {
+        currentBuild.result = 'FAILED'
+        throw err
+    }
+}
