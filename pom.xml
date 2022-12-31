@@ -19,7 +19,6 @@
 
 	<build>
 		<plugins>
-		
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-clean-plugin</artifactId>
@@ -39,18 +38,18 @@
 					</sharedLibraries>
 				</configuration>
 			</plugin>
-			
 			<plugin>
-  				<groupId>org.mule.tools.maven</groupId>
-  				<artifactId>mule-maven-plugin</artifactId>
-  				<version>3.7.1</version>
-  				<extensions>true</extensions>
-   				<configuration>
-     			<standaloneDeployment>
-         			<muleVersion>4.4.0</muleVersion>
-         			<muleHome>C:\mule-node\bin</muleHome>        
-      			</standaloneDeployment>
-   				</configuration>
+				<groupId>org.mule.tools.maven</groupId>
+				<artifactId>mule-maven-plugin</artifactId>
+				<version>3.7.1</version>
+				<extensions>true</extensions>
+				<configuration>
+					<standaloneDeployment>
+						<muleVersion>4.4.0</muleVersion>
+						<muleHome>C:\mule-node\bin</muleHome>
+						<deploymentTimeout>10000000</deploymentTimeout>
+					</standaloneDeployment>
+				</configuration>
 			</plugin>
 
 		</plugins>
