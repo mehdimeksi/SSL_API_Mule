@@ -70,6 +70,15 @@
 				<groupId>org.mule.tools.maven</groupId>
 				<artifactId>mule-maven-plugin</artifactId>
 				<version>3.7.1</version>
+				<executions>
+					<execution>
+						<id>default-deploy</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
 				<extensions>true</extensions>
 				<configuration>
 					<standaloneDeployment>
@@ -79,18 +88,6 @@
 					</standaloneDeployment>
 				</configuration>
 			</plugin>
-          <plugin>
-          <artifactId>maven-deploy-plugin</artifactId>
-          <executions>
-            <execution>
-             <id>default-deploy</id>
-             <phase>deploy</phase>
-             <goals>
-              <goal>deploy</goal>
-             </goals>
-            </execution>
-          </executions>  
-        </plugin>
 		</plugins>
 	</build>
 
