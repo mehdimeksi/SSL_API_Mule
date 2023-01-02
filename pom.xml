@@ -15,38 +15,37 @@
 		<app.runtime>4.4.0-20221212</app.runtime>
 		<mule.maven.plugin.version>3.8.0</mule.maven.plugin.version>
 	</properties>
-	
-	  <distributionManagement> 
-	     <snapshotRepository> 
-     	<id>mule-snapshot</id> 
-     	<url>http://127.0.0.1:8081/repository/mule-snapshot/</url>
-     	</snapshotRepository> 
-     	<repository> 
-     	<id>mule-release</id> 
-     	<url>http://127.0.0.1:8081/repository/mule-release/</url> 
-     	</repository>
-     </distributionManagement>
+	<distributionManagement>
+		<snapshotRepository>
+			<id>mule-snapshot</id>
+			<url>http://127.0.0.1:8081/repository/mule-snapshot/</url>
+		</snapshotRepository>
+		<repository>
+			<id>mule-release</id>
+			<url>http://127.0.0.1:8081/repository/mule-release/</url>
+		</repository>
+	</distributionManagement>
 
 	<build>
 		<plugins>
 			<plugin>
-  			 <groupId>org.sonatype.plugins</groupId>
-   			 <artifactId>nexus-staging-maven-plugin</artifactId>
-   			<version>1.5.1</version>
-   			<executions>
-      		<execution>
-         	<id>default-deploy</id>
-         	<phase>deploy</phase>
-         	<goals>
-            <goal>deploy</goal>
-         	</goals>
-      		</execution>
-   			</executions>
-   		<configuration>
-     	 	<serverId>nexus</serverId>
-      		<nexusUrl>http://127.0.0.1:8081/nexus/</nexusUrl>
-      		<skipStaging>true</skipStaging>
-   		</configuration>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.5.1</version>
+				<executions>
+					<execution>
+						<id>default-deploy</id>
+						<phase>deploy</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<serverId>nexus</serverId>
+					<nexusUrl>http://127.0.0.1:8081/nexus/</nexusUrl>
+					<skipStaging>true</skipStaging>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -80,7 +79,18 @@
 					</standaloneDeployment>
 				</configuration>
 			</plugin>
-
+          <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <executions>
+            <execution>
+             <id>default-deploy</id>
+             <phase>deploy</phase>
+             <goals>
+              <goal>deploy</goal>
+             </goals>
+            </execution>
+          </executions>  
+        </plugin>
 		</plugins>
 	</build>
 
